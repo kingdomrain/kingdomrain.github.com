@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>沈雨潮20161206工具使用</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+		</style>
+	</head>
+	<body>
+		<div>代码格式书写规范化</div>
+		<p>即使是不同人编写的代码也需要看起来像是同一个人编写的.</p>
+		<div>for循环的复习</div>
+		<p>for循环基本语法:</p>
+		<pre>
+			for(申明变量;表达式或值;表达式或值(后运算)){
+				执行代码;
+			}
+		</pre>
+		<p>实例</p>
+		<pre>
+	 var box=document.getElementById("box");
+	 var str=new String;
+	 var k=3;
+	 for(var i = 0; i < 5; i ++ ){
+	 	for(var j = 0; j < 5; j ++){
+	 		if(5*i+j-k<0){
+	 		str+=<span>"<<span>div><<span>/div>"</span>
+	 		}else{
+	 		str+=<span>"<</span>div>"+(5*i+j-k+1)+<span>"<</span>/div>"
+	 		}
+	 	}
+	 }
+	 box.innerHTML=str;
+		</pre>
+		<p>结果如图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161207191855.jpg">
+		<div>运算符的复习</div>
+		<p>常用运算符</p>
+		<pre>
+		
+		负值 - 逻辑非 ! 按位取反 ~ 赋值 = 删除 delete
+		递增 ++ 小于 < 按位左移 << 运算赋值 oP= typeof 运算符 typeof
+		递减 -- 大于 > 按位右移 >> void 运算符 void
+		乘法 * 小于等于 <= 无符号右移 >>>
+		除法 / 大于等于 >= 按位与 &
+		取模运算 % 等于 == 按位异或 ^
+		加法 + 不等于 != 按位或 |
+		减法 - 逻辑与 &&
+		逻辑或 ||
+		条件（三元运算符） ?:
+		逗号 ,
+		恒等 ===
+		不恒等 !==
+		</pre>
+		<p>注意+=与=+的差别,一个是先加后赋值,一个是先赋值后加</p>
+		<div>函数的复习</div>
+		<p>函数的三种声明方法</p>
+		<p>1.匿名声明</p>
+		<pre>
+			function(){
+		    alert(123)
+			}
+		</pre>
+		<p>2.表达式声明</p>
+		<pre>
+			var fun=function(){
+		    alert(123)
+			}
+		</pre>
+		<p>3.直接声明</p>
+		<pre>
+			function fun(){
+		    alert(123)
+			}
+		</pre>
+		<p>直接申明的函数可以在声明函数的上方调用,如:</p>
+		<pre>
+			name();
+			function name(){
+				alert(1)
+			}
+		</pre>
+		<p>函数也可以用同样的名字覆盖自己,不过不同的声明方式会有不同的优先度,如:以下情况下会弹出3</p>
+		<pre>
+			function name(){
+				alert(1)
+			}
+			
+			var name=function(){
+				alert(3)
+			}
+			function name(){
+				alert(2)
+			}
+			name();
+			}
+		</pre>
+		<p>以下情况下会弹出2</p>
+		<pre>
+			function name(){
+				alert(1)
+			}
+			function name(){
+				alert(2)
+			}
+			
+			name();
+			}
+		</pre>
+	</body>
+</html>
