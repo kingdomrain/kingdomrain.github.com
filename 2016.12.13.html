@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>函数作用域</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>函数作用域</div>
+		<p>所谓函数作用域就是说：-》变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的。</p>
+		<div>闭包</div>
+		<p>产生闭包的关键是，一个在函数 A内的声明的函数 B被传出 A 之外，并且 B 函数内使用了在 函数A 内生成的数据（声明或按值传参）</p>
+		<p>广义上来说，函数运行时都会形成闭包，没有数据在函数外被引用时，闭包的生命周期很短：函数执行完毕即释放。</p>
+		<p>闭包的独立性：即使由同一个函数产生的多个闭包也是相互独立的</p>
+        <p>两种闭包的使用的方式</p>
+        <pre>
+	方法一:function fun(){
+	 	this.a=function(){
+	 		console.log(123);
+	 	}
+	 }
+	 var foo=new fun();
+	 foo.a();  //输出结果"123"
+	 
+	 方法二: function fun(){
+	 	console.log(234)
+	 }
+	 fun.prototype.a=function(){
+	 		console.log(123); }
+	 var foo=new fun();
+	 foo.a();  //输出结果  "234","123"
+        </pre>
+		<div>实例</div>
+		<p>日历的制作</p>
+		<p><a href="https://kingdomrain.github.io/rili.html">点击查看详细效果页面</a></p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161213194251.jpg">
+		</body>
+</html>

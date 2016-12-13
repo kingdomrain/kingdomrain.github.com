@@ -1,0 +1,159 @@
+﻿ <!DOCTYPE HTML>
+		<html>
+		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+		<title>className属性</title>
+		<style>
+			.instyle{
+				float:left;
+				background: #e5e5e5;
+				width:50px;
+				text-align: center;
+			}
+			.first{
+				width:350px;
+			}
+			#bottom{
+				width:350px;
+			}
+			#bottom div{
+				float:left;
+				width:50px;
+				height:30px;
+				line-height: 30px;
+				text-align: center;
+			}
+			#bottom div:hover{
+				background: #e5e5e5;
+			}
+			input{
+				width:40px;
+				text-align: center;
+			}
+			.buttonstyle{
+				width:20px;
+			}
+			.other{
+				color: #999;
+			}
+		</style>
+
+
+		</head>
+		<body>
+			        <div id="select">
+			        	<input type="button" name="" id="" value="<"class="buttonstyle"/>
+			        	<input type="text" name="" id="" value="" />
+			        	<input type="button" name="" id="" value=">"class="buttonstyle"/>年
+			        	<input type="button" name="" id="" value="<"class="buttonstyle"/>
+			        	<input type="text" name="" id="" value="" />
+			        	<input type="button" name="" id="" value=">" class="buttonstyle"/>月
+			        	<input type="button" name="" id="" value="查询"/>
+			        </div>
+					<div id="bigbox">
+						<div class="first">
+							<div class="instyle">周日</div>
+							<div class="instyle">周一</div>
+							<div class="instyle">周二</div>
+							<div class="instyle">周三</div>
+							<div class="instyle">周四</div>
+							<div class="instyle">周五</div>
+							<div class="instyle">周六</div>
+						</div>
+						<div id="bottom">
+							
+						</div>
+					</div>
+			
+		</body>
+					<script type="text/javascript" >
+		var tab=document.getElementById("tab")	
+			
+			function timefun(x,y){
+				var time=new Date(x,y,0);
+				var timefirst=new Date(x,y-1,1);
+				var time1=new Date(x,y-1,0);
+				var time2=new Date(x,y+1,0);
+				var days=time.getDate();
+				var days1=time1.getDate();
+				var wek=timefirst.getDay();
+				var bottom=document.getElementById("bottom");
+				var str="";
+				var  i=0;
+				for(var j=wek-1;j>=0;j--){
+					str+="<div class='other'>"+(days1-j)+"</div>";
+				}
+				for(var j=1;j<=days;j++){
+					str+="<div class='now'>"+j+"</div>";
+				}
+				for(var j=1;j<7-(days+wek-1)%7;j++){
+					str+="<div class='other'>"+j+"</div>";
+				}
+				bottom.innerHTML=str;
+				
+				
+				var time3=new Date();
+				if(x==time3.getFullYear()&&y==time3.getMonth()+1){
+					var allday=document.getElementsByClassName("now");
+					allday[time3.getDate()-1].style.background="#FF4500";
+					allday[time3.getDate()-1].style.color="#fff";
+				}
+				
+				
+			}
+		
+		
+		var input=document.getElementsByTagName("input");
+		var button=input[6];
+		button.onclick=select;
+		
+		function select(){
+			var year=input[1].value;
+			var month=input[4].value;
+			timefun(year,month);
+			
+		}
+		
+		
+		var timenow=new Date();
+		timefun(timenow.getFullYear(),timenow.getMonth()+1);
+		input[1].value=timenow.getFullYear();
+		input[4].value=timenow.getMonth()+1;
+		
+		
+		input[0].onclick=function(){
+			input[1].value-=1;
+			var year=input[1].value;
+			var month=input[4].value;
+			timefun(year,month);
+		}
+		input[2].onclick=function(){
+			input[1].value=input[1].value-0+1;
+			var year=input[1].value;
+			var month=input[4].value;
+			timefun(year,month);
+		}
+		input[3].onclick=function(){
+			input[4].value-=1;
+			if(input[4].value<=0){
+				input[4].value=12;
+				input[1].value=input[1].value-1;
+			}
+			var year=input[1].value;
+			var month=input[4].value;
+			timefun(year,month);
+		}
+		input[5].onclick=function(){
+			input[4].value=input[4].value-0+1;
+			if(input[4].value>12){
+				input[4].value=1;
+				input[1].value=input[1].value-0+1;
+			}
+			var year=input[1].value;
+			var month=input[4].value;
+			timefun(year,month);
+		}
+		
+		
+			</script>
+		</html>
