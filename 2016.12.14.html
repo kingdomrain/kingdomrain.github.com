@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>canvas</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>canvas</div>
+		<p>也就是画布HTML5 < canvas> 标签用于绘制图像（通过脚本，通常是 JavaScript）。
+
+不过，< canvas> 元素本身并没有绘制能力（它仅仅是图形的容器） - 您必须使用脚本来完成实际的绘图任务。
+
+getContext() 方法可返回一个对象，该对象提供了用于在画布上绘图的方法和属性。
+
+</p>
+		<div>比较常用的几种canvas方法</div>
+		<pre>
+var canvas = document.getElementById("canvas");     //西瓜,圆的写法
+var can = canvas.getContext("2d")
+can.rect(0,0,110,110);
+can.lineWidth="10";
+can.strokeStyle="red";
+can.stroke();
+can.fillStyle="#00ff00";
+can.fillRect(5,5,100,100);
+can.beginPath();
+can.arc(200, 200, 100, 0.5 * Math.PI, 1.5 * Math.PI);
+can.lineWidth = "5";
+can.strokeStyle = "green";
+can.closePath();
+can.stroke();
+can.fillStyle = "red";
+can.fill();
+for(var i = 0; i < 100; i++) {   
+var n = Math.random() * 100;
+var l = Math.random() * 200;
+var x = l - 100;
+if(n * n + x * x < 100 * 100) {
+can.beginPath();
+can.arc(200 - n, 300 - l, 2, 0.5 * Math.PI, 1.5 * Math.PI);
+can.fillStyle = "black";
+can.fill();
+}
+}
+
+can.beginPath();
+can.arc(400, 300, 100, 1 * Math.PI, 1.5 * Math.PI);
+can.lineTo(400, 300)
+can.lineWidth = "5";
+can.strokeStyle = "green";
+can.closePath();
+can.stroke();
+can.fillStyle = "red";
+can.fill();
+
+
+var n1 = Math.random() * 100;
+var l1 = Math.random() * 200;
+can.beginPath();
+can.moveTo(n1,l1);
+for(var i = 0; i < 10; i++) {
+n1 = Math.random() * 100;
+l1 = Math.random() * 200;
+x=Math.random() * 2;
+if(x>1){
+can.lineTo(100+n1,100+l1);
+}else{
+var r= Math.random() * 200;
+var pi=Math.random() * 2;
+var pi1=Math.random() * 2;
+can.arc(200+n1, 200+l1, r, pi * Math.PI, pi1 * Math.PI);
+}
+console.log()
+}
+can.closePath();
+can.stroke();
+                
+can.beginPath();        //创建三次方贝塞尔曲线
+var x1=Math.random()*200;
+var x2=Math.random()*200;
+var x3=Math.random()*1200;
+var x4=Math.random()*200;
+var x5=Math.random()*200;
+var x6=Math.random()*200;
+var x7=Math.random()*200;
+var x8=Math.random()*200;
+can.moveTo(x1,x2)
+can.bezierCurveTo(x3,x4,x5,x6,x7,x8)
+can.closePath();
+can.stroke();
+
+var gra=can.createLinearGradient(100,150,270,0)  //创建线性渐变
+gra.addColorStop(0,"red");
+gra.addColorStop(1,"blue");
+can.fillStyle=gra;
+can.rect(100,100,100,100);
+can.fill()
+				
+var gra=can.createRadialGradient(200,200,50,200,200,100);   //创建径向渐变
+gra.addColorStop(0,"red");
+gra.addColorStop(0.5,"yellow");
+gra.addColorStop(1,"blue");
+can.fillStyle=gra;
+can.rect(100,100,200,200);
+can.fill()
+				
+				
+var img=new Image();     //图片的移动方法
+img.src="images/QQ截图20161213194251.jpg";
+img.onload=function(){
+					
+					
+can.drawImage(img,950,10);
+}
+			
+		</pre>
+		<div>实例</div>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161214202727.jpg">
+		</body>
+</html>
