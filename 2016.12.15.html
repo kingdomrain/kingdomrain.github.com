@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>canvas</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>xml</div>
+		<p>XML 被设计用来传输和存储数据;一般格式如下:</p>
+		<pre>
+< note >
+< to >George< / t o>
+< from >John< / from>
+< heading >Reminder< / heading>
+< body >Don't forget the meeting!< / body>
+< / note>
+		</pre>
+		<div>SVG</div>
+		<p>SVG 意为可缩放矢量图形（Scalable Vector Graphics）。SVG 使用 XML 格式定义图像
+</p>
+<p>svg格式一般如下</p>
+		<pre>
+<?xml version="1.0" standalone="no"?>
+< !DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+< svg width="100%" height="100%" version="1.1" 
+xmlns="http://www.w3.org/2000/svg">
+
+< circle cx="100" cy="50" r="40" stroke="black"  //圆形
+stroke-width="2" fill="red"/>
+
+< ellipse cx="300" cy="150" rx="200" ry="80"  //椭圆
+style="fill:rgb(200,100,50);
+stroke:rgb(0,0,100);stroke-width:2"/>
+
+<  line x1="0" y1="0" x2="300" y2="300"   //线段
+style="stroke:rgb(99,99,99);stroke-width:2"/>
+
+< rect width="300" height="100"   //矩形
+style="fill:rgb(0,0,255);stroke-width:1;
+stroke:rgb(0,0,0)"/>
+
+< polygon points="220,100 300,210 170,250"  //多边形
+style="fill:#cccccc;
+stroke:#000000;stroke-width:1"/>
+
+< path d="M250 150 L150 350 L350 350 Z" />  //路径,该方法比较特殊,可以表现出多种形状
+
+M = moveto 
+L = lineto 
+H = horizontal lineto 
+V = vertical lineto 
+C = curveto 
+S = smooth curveto 
+Q = quadratic Belzier curve 
+T = smooth quadratic Belzier curveto 
+A = elliptical Arc 
+Z = closepath 
+
+
+< /svg>
+	</pre>
+		<div>requestAnimationFrame</div>
+		<p>由于常用的setInterval和setTimeout容易使性能不好的电脑产生卡顿,所以产生了requestAnimationFrame的方法使画面更加平滑</p>
+		<p>以下是例子</p>
+		<pre>
+	var div=document.getElementById("div");
+		var i=0;
+		
+		function time(){
+		i++;
+		div.style.width=i+"px";
+		div.innerHTML=i+"%";
+		if(i<1000){
+				requestAnimationFrame(time);
+			}
+		}
+		requestAnimationFrame(time);
+		</pre>
+		<div> 画布旋转实例</div>
+		<pre>
+var i = 0,
+		n = 0;
+	var left = document.getElementById("left");
+	var right = document.getElementById("right");
+
+	function rota() {
+		var canvas = document.getElementById("canvas");
+		var can = canvas.getContext("2d");
+		var div=document.getElementById("div");
+		can.clearRect(0, 0, 3000,3000);
+		var img = new Image();
+		img.src = "images/beijing.jpg";
+		img.onload = function() {
+			can.drawImage(img, 0,div.offsetHeight/2);
+		}
+		if(n == 0) {
+			can.scale(0.3, 0.3);
+		}
+		n = 1;
+	}
+	rota()
+	right.onclick = function() {
+		rota()
+		var canvas = document.getElementById("canvas");
+		var can = canvas.getContext("2d");
+		var div=document.getElementById("div");
+		can.rotate(0.5 * Math.PI);
+		can.translate(0, -div.offsetHeight*8/5);
+	}
+	left.onclick = function() {
+		rota()
+		var canvas = document.getElementById("canvas");
+		var can = canvas.getContext("2d");
+		var div=document.getElementById("div");
+		can.rotate(-0.5 * Math.PI)
+		can.translate(-div.offsetHeight*8/5,0);
+	}
+
+}
+		</pre>
+		<p>效果如图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161215193647.jpg">
+		<img src="https://kingdomrain.github.io/img/QQ截图20161215193704.jpg">
+		<div>画布画喵</div>
+		<p>大部分的线条都是使用了bezierCurveTo()来画的,也就是三次方贝塞尔曲线</p>
+		<p>三次方贝塞尔曲线的基本格式为bezierCurveTo(20,100,200,100,200,20);
+</p>
+<img src="https://kingdomrain.github.io/img/QQ截图20161215195103.jpg">
+<p>使用该方法和lineto直线画法基本可以完成大部分的线条,线条画好之后便是填充颜色,很多人表示颜色填充的时候经常会有部分地方没有填充,这种情况一般发生于路径断开,不连贯的原因.</p>
+		<p>还有就是多个形状的层次问题,这个的话只要把视觉上靠上的形状写在代码的靠底部位置就行了</p>
+	</body>
+</html>
