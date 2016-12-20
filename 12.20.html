@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>视频播放器、跑马灯</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>跑马灯</div>
+		
+		<p>效果如下图</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161220173337.jpg">
+		<p>主要js代码如下</p>
+		<pre>
+var box=document.getElementsByClassName("box")[0];    //获取到需要拖动的对象
+		var p=document.getElementsByTagName("p")[0];  //用来获取需要拖动距离上限
+		setInterval(function(){
+			if(box.scrollLeft==p.offsetWidth){    //当拖动距离达到上限的时候,使滚动条回归原点
+				box.scrollLeft=0;
+			}else{
+				box.scrollLeft++;
+			}
+		},10)
+	</pre>
+		<p>主要布局代码如下
+</p>
+		<pre>
+< style>
+		   .box{
+		   	width:100px;
+				height:100px;
+				overflow: hidden;
+				float:left;
+		   }
+			.div{
+				width:200px;
+				height:100px;
+				
+			}
+			p{
+				width:100px;
+				height:100px;float:left;
+			}
+		< /style>
+
+
+< body>
+		< div class="box">
+		< div class="div">
+			< p>1234567< /p>
+			< p>1234567< /p>
+		< /div>
+		< /div>
+	< /body>
+
+	</pre>
+		<div>视频播放实例</div>
+		<p>点击播放下一个视频功能:</p>
+		<pre>
+			var arr=[{src:"files/婚礼现场.webm" ,name:"婚礼现场"},{src:"files/movie.ogg", name:"动物世界"}]; //首先需要创建一个用于存储视频地址的数组
+			function nextfun(){   //当点击按钮的时候使视频的src换成下一个视频的地址,如果是最后一个视频的话泽返回第一个视频
+		i++;
+		if(i>=arr.length){
+			i=0;
+		}
+		video1.currentTime=0;
+		video1.src=arr[i].src;
+		video1.play();
+		/
+	}
+	
+		</pre>
+		<p>增大减少音量:</p>
+		<pre>
+			voiseright.addEventListener("click",function(){  //主要的代码是volume,靠这个来获取音量和设置音量
+		if(voise.innerHTML<100){
+			voise.innerHTML=voise.innerHTML-0+10;
+			video1.volume=(voise.innerHTML-0)/100;
+		}
+	}) 
+	
+	voiseleft.addEventListener("click",function(){
+		if(voise.innerHTML>0){
+			voise.innerHTML-=10;
+			video1.volume=(voise.innerHTML-0)/100;
+		}
+	})
+		</pre>
+		<p>视频列表:</p>
+		<pre>
+			for(var l=0;l< arr.length;l++){   //使用for循环生成所有的列表项,然后使用this方法给每个生成的列表项添加点击动作和各自的编码号,基本操作和播放下一个的差不多,
+		var li=document.createElement("li");
+		ul.appendChild(li);
+		li.innerHTML=arr[l].name;
+		li.i=l;
+		li.onclick=function(){
+			video1.src=arr[this.i].src;
+			videoBtn.innerHTML=="播放";
+			video1.play();
+			i=this.i;
+			video1.currentTime=0;
+		}
+	}
+		</pre>
+		<p>三种自动播放模式</p>
+		<pre>
+			var playmode=3;  //首先我设置了一个变量,用于判断当前处于哪种模式
+			
+			play1.addEventListener("click",function(){    //当每个模式按下的时候都会改变变量的值,并且改变css样式
+		playmode=1;
+		play1.style.background="#0078E7";
+		play2.style.background="#F0AD4E";
+		play3.style.background="#F0AD4E";
+	})
+	play2.addEventListener("click",function(){
+		playmode=2;
+		play2.style.background="#0078E7";
+		play3.style.background="#F0AD4E";
+		play1.style.background="#F0AD4E";
+	})
+	play3.addEventListener("click",function(){
+		playmode=3;
+		play3.style.background="#0078E7";
+		play1.style.background="#F0AD4E";
+		play2.style.background="#F0AD4E";
+	})
+	
+	function playmodefun(){                        //当视频处于停止时,根据当前播放时间和总时间来判断视频是否播放完了,如果放了就根据之前设置的变量来决定下一个播放的是哪个视频
+		if(video1.currentTime==video1.duration){
+		if(playmode==3){
+			nextfun()
+		}else if(playmode==2){
+			i--;
+			nextfun();
+		}else if(playmode==1){
+			i=parseInt(Math.random()*arr.length)-1;
+			nextfun();
+		}
+		clickstrats()
+		}
+	}
+	video1.addEventListener("pause",playmodefun)
+		</pre>
+	</body>
+</html>
