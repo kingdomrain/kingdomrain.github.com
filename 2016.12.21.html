@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>打砖块</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>跑马灯</div>
+		
+		<p>效果如下图</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161221192924.jpg">
+		<p>创造能跟随鼠标移动的底板:</p>
+		<pre>
+gamebox.onmousemove=function(){
+			
+			bottom.style.left=event.clientX-bottom.offsetWidth/2+"px";  //我的设定是球开始运动前球是和底板一起运动的
+			bottomx=event.clientX;
+			
+			if(play){
+				ball.style.left=event.clientX-ball.offsetWidth/2+"px";
+				ballx=event.clientX;
+			}
+		}
+		gamebox.onclick=function(){   //当鼠标点击的时候,游戏开始,球开始动
+			if(play){
+				play=false;
+				ballstras=setInterval(ballmove,5);   
+				tachwalls=setInterval(tachwall,5)
+			}
+		}
+	</pre>
+		<p>球的运动方式代码:
+</p>
+		<pre>
+function ballmove(){
+			if(angle<=Math.PI/2){   //根据球的运动角度会有两种不同的坐标计算法
+				ballx+=Math.cos(angle)*speed;
+				ball.style.left=ballx-ball.offsetWidth/2+"px";
+				bally-=Math.sin(angle)*speed;
+				ball.style.top=bally-ball.offsetHeight/2+"px";
+				
+			}else if(angle>Math.PI/2){
+				ballx+=Math.cos(angle)*speed;
+				ball.style.left=ballx-ball.offsetWidth/2+"px";
+				bally-=Math.sin(angle)*speed;
+				ball.style.top=bally-ball.offsetHeight/2+"px";
+				
+			//	console.log(ballx+'-'+bally)
+			}
+			tachtime()
+			
+		}
+
+</pre>
+		<p>当球遇到墙的时候的时候:</p>
+		<pre>
+			function tachwall(){
+			var k=bottom.offsetWidth/2;
+			var o=bottom.offsetHeight/2;
+			if(ballx< ball.offsetWidth/2+speed){    //当球遇到不同方向的墙时会有不同的改变球轨迹角度的方式
+				angle=Math.PI-angle;
+			}else if(ballx>gamebox.offsetWidth-ball.offsetWidth/2-speed){
+				angle=Math.PI-angle;
+			}else if(bally< ball.offsetHeight/2+speed){
+				angle=-angle;
+			}else if(ballx>(bottomx-k)&&ballx< bottomx+k&&bally>gamebox.offsetHeight-2*o-(bottom.offsetHeight/2)){
+				var i=(bottom.offsetHeight/2)/(bottomx-ballx);
+				if(i<=0){
+					angle=-Math.atan(i);
+				}else{
+					angle=-Math.PI-Math.atan(i);
+				}
+			}else if(bally>gamebox.offsetHeight-ball.offsetHeight/2){
+				clearInterval(ballstras);
+				clearInterval(tachtimes);
+				clearInterval(tachwalls);
+			}	
+		}
+	
+		</pre>
+		<p>创造用来消除的方块:</p>
+		<pre>
+			function create(){    //用数组来获取所需要的方块的坐标轴
+			for(var i=0;i< arr.length;i++){
+				var span=document.createElement("div");
+				gamebox.appendChild(span);
+				span.className="span";
+			span.x=arr[i].x;
+			span.y=arr[i].y;
+			span.style.left=span.x+"px";
+			span.style.top=span.y+"px";
+			}
+		
+		}
+		</pre>
+		<p>构造球遇到消除方块时的变化函数:</p>
+		<pre>
+			var allspan=document.getElementsByClassName("span");
+		function tachtime(){
+			var uu=0;
+		function tachspan(spanarr){      //获取到每个方块的坐标,以此计算出球和方块如果接触所需要的坐标,由于电脑在运行的时候会有误差,所以给坐标添加了用来处理误差的参数
+			var x1=spanarr.x-ball.offsetWidth/2;
+			var x2=x1+spanarr.offsetWidth+ball.offsetWidth;
+			var y1=spanarr.y-ball.offsetHeight/2;
+			var y2=spanarr.y+spanarr.offsetHeight+ball.offsetHeight/2;
+			if(ballx>=x1-speed&&ballx<=x2+speed&&bally>=y1-speed&&bally<=y2+speed&&uu==0){
+				
+				if(bally>y2-speed||bally< y1+speed){    //当球碰到方块的时候也会存在多种切入点,所以需要多种可能性都一起考虑
+					angle=-angle;
+					//spanarr.style.display="none";
+					spanarr.parentNode.removeChild(spanarr);
+				}else if(ballx>x2-speed||ballx< x1+speed){
+					angle=Math.PI-angle;
+					spanarr.parentNode.removeChild(spanarr);
+				}
+				uu=1;
+			}
+		}
+		
+		for(var kk=0;kk< allspan.length;kk++){
+			tachspan(allspan[kk]);
+		 }
+		uu=0;
+		}
+		</pre>
+		
+	</body>
+</html>
