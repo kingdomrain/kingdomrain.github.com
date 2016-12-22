@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>AJAX/JSON</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>AJAX</div>
+		<p>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）.主要用于无需加载整个网页,只需要加载部分内容的时候.
+</p>
+<p>XMLHttpRequest 对象的用法如下:
+</p>
+<pre>
+	var xhl=new XMLHttpRequest();
+	
+	var variable=new ActiveXObject("Microsoft.XMLHTTP");  //ie5/6的写法,如果要处理兼容的话需要如下写法
+	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+    {
+    xmlhttp=new XMLHttpRequest();
+    }
+	else
+    {
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+</pre>
+<p>AJAX - 向服务器发送请求,有以下两种:
+</p>
+<pre>
+	xhl.open("GET","DATA.json");  //open(method,url,async) ture代表异步 false代表同步
+	
+	xhl.send(null);   //将请求发送到服务器
+</pre>
+<p>onreadystatechange 事件</p>
+<p>每当 readyState 改变时，就会触发 onreadystatechange 事件。readyState和status的值主要一般有以下几种
+</p>
+<pre>
+	readyState 存有 XMLHttpRequest 的状态。
+	从 0 到 4 发生变化。
+
+0: 请求未初始化 
+1: 服务器连接已建立 
+2: 请求已接收 
+3: 请求处理中 
+4: 请求已完成，且响应已就绪 
+ 
+status 的两种状态.
+200: "OK"
+
+404: 未找到页面
+ 
+
+</pre>
+
+<p>一般书写的时候会加以下判断,以确保不会出错</p>
+<pre>
+	if(xhl.readyState==4){ 
+				if(xhl.status==200){
+					
+				}
+			}
+</pre>
+<div>JSON</div>
+<p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。
+
+JSON 是存储和交换文本信息的语法。类似 XML。
+
+JSON 比 XML 更小、更快，更易解析。
+</p>
+<p>JSON可以存储数据并且在js需要使用的时候解析调用,具体用法如下:</p>
+<pre>
+	[                  //先创建一个json文件,在里面填入如下数据
+				{
+					"name": "张三",
+					"sex": "男",
+					"age": "20",
+					"phoneNumber": "110120130140",
+					"university": "浙江大学",
+					"major": "历史专业",
+					"college": "淘宝学院",
+					"time": "1998"
+				},
+				{
+					"name": "李四",
+					"sex": "女",
+					"age": "10",
+					"phoneNumber": "190120030140",
+					"university": "杭州大学",
+					"major": "软件工程",
+					"college": "阿里学院",
+					"time": "1989"
+				},
+				{
+					"name": "贾轩",
+					"sex": "男",
+					"age": "29",
+					"phoneNumber": "1234320140",
+					"university": "温州大学",
+					"major": "电子信息工程",
+					"college": "职业学院",
+					"time": "1967"
+				},
+				{
+					"name": "赵天成",
+					"sex": "男",
+					"age": "24",
+					"phoneNumber": "123424140",
+					"university": "浙江大学",
+					"major": "通信工程",
+					"college": "电子通信学院",
+					"time": "2013"
+				},
+				{
+					"name": "唐开强",
+					"sex": "男",
+					"age": "36",
+					"phoneNumber": "113242340140",
+					"university": "中国大学",
+					"major": "船舶工程",
+					"college": "航母学院",
+					"time": "1999"
+				}
+
+			]
+			
+			
+		JSON.parse(xhl.response);  //再在js里使用JSON.parse()方法来解析json里的数据信息,xhl为之前定义的XMLHttpRequest对象
+			
+</pre>
+<p>效果如下图</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161222191140.jpg">
+	</body>
+</html>
