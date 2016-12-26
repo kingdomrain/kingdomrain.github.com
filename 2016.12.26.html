@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>jQuery</div>
+		<p>常用选择器</p>
+		<pre>
+			
+	$(document).ready(function(){
+		$(btn).click(function(){
+		//$("#li1").toggleClass("cssClass");		//id选择器
+		//$(".li2").toggleClass("cssClass"); //clsaa选择器
+		//$("li").toggleClass("cssClass"); //标签选择器
+		//$("*").toggleClass("cssClass"); //通配选择器
+		//$("ul,span").toggleClass("cssClass"); //群组选择器
+		//$("ul>li").toggleClass("cssClass"); //后代选择器
+		//$("ul li:first").toggleClass("cssClass"); //过滤选择器
+		//$("input[name=ip1]").toggleClass("cssClass"); //属性选择器
+	 		
+	})
+})
+
+		</pre>
+
+<p>常用的事件</p>
+<pre>
+	
+	$(document).ready()  //相当于页面载入时
+	$(document).click()  //点击事件
+	$(document).dbclick()  //双击事件
+	$(document).change()  //selected选项改变事件
+	$(document).focus()  //获取焦点事件
+	$keydown([[data],fn])   //键盘按下事件
+	$keypress([[data],fn])  //键盘点击事件
+	$keyup([[data],fn])   //键盘松开事件
+	$mousedown([[data],fn])   //鼠标按下事件
+	$mouseenter([[data],fn])  //鼠标移入事件
+	$mouseleave([[data],fn])  //鼠标移开事件,与 mouseout 事件不同，只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。如果鼠标指针离开任何子元素，同样会触发 mouseout 事件。
+	$mousemove([[data],fn])  //鼠标移动事件
+	$mouseout([[data],fn])  //鼠标移出事件
+	$mouseover([[data],fn]) //鼠标经过事件
+	$mouseup([[data],fn])  //鼠标松开事件
+	$resize([[data],fn])  //窗口大小改变事件
+	$scroll([[data],fn])  //滚动条事件
+	$select([[data],fn]) //当 textarea 或文本类型的 input 元素中的文本被选择事件
+	$submit([[data],fn]) //提交表单事件
+	$unload([[data],fn]) //用户离开页面事件
+
+</pre>
+
+<div>实例</div>
+<p>使用jQuery编写表单验证,代码如下:</p>
+<pre>
+	var arr=[["杭州","台州","温州"],["济南","青岛","德州"]];
+$("#sel1").change(function(){
+	var str="< option>请选择市< /option>";
+	for(var i=0;i< arr[this.selectedIndex-1].length;i++){
+		str+="<option>"+arr[this.selectedIndex-1][i]+"</option>";
+	}
+	$("#sel2").html(str);
+	//alert($("#sel1").prop('selectedIndex'))
+})
+
+$("#but1").click(function(){
+	$("#sel1,#sel2").css("display","block");
+	
+})
+
+$("#but2").click(function(){
+	if($('#name').val()==""||$('#password').val()==""||$('#email').val()==""||$('#checkpasswrod').val()==""){
+		$("#msg").text("输入框都不能为空");
+		return;
+	}
+	var reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+	if( reg.test($('#email').val())){
+	}else{
+		$("#msg").text("邮箱格式错误");
+		return;
+	}
+	if($('#password').val()!=$('#checkpasswrod').val()){
+		$("#msg").text("两次密码不同");
+		return;
+	}
+	if($("#sel1").prop('selectedIndex')==0||$("#sel2").prop('selectedIndex')==0){
+		$("#msg").text("请选择地区 ");
+		return;
+	}
+	$("#msg").text("提交成功 ");
+})
+</pre>
+<img src="https://kingdomrain.github.io/img/QQ截图20161226194141.jpg">
+	</body>
+</html>
