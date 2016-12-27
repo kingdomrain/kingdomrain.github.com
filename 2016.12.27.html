@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>jQuery的用法</div>
+		<p>常用的DOM函数</p>
+		<pre>
+			
+	//$("img").attr("alt","1")
+//$("img").attr("alt",function(a,b,c){
+//return b="2";
+//})
+//$("img").removeAttr("src");  //移除属性
+//$("img").attr("src","1")   //设置或者获得属性值
+
+//$("div").text("< span>asd< /span>")  
+//$("div").html("< span>asd< /span>")  //纯文本
+
+//$("div").empty();  //把内容变为空,不移除本身
+//$("div").remove();  //移除本身
+//$("#div").after("eqw");  //在之后插入
+//$("#div").append("ewq") ; 
+//$("< p>123< /p>").appendTo("#div")  //需要加标签
+//$("div").css({"color":"fff","height":"100px"})  //多条样式用对象
+//console.log($("div").outerHeight());  //包括补白和边框
+//console.log($("div").innerHeight());  //包括补白不包括边框
+//console.log($("div").height()); 
+//var position =$("div").position();
+//$("div").html( "left: " + position.left + ", top: " + position.top );   //查找定位信息
+
+		</pre>
+
+<p>常用的动画效果</p>
+<pre>
+	
+	//$("div").hide(1000).delay(2000).show(2000)   //隐藏
+		//$("div").fadeToggle(1000)  //淡入淡出
+		//$("div").show(2000)
+//		$("div").animate({
+//			width: "300px", 
+//			height: "10px",
+//			borderWidth:20
+//		},1000)    //多种动画效果
+		//$("div").hide("slow").delay(2000).show(2000)  //组合写法,delay延迟
+
+</pre>
+
+<p>jQuery中的ajax用法</p>
+<pre>
+		
+//		$.ajax({    //ajax语法
+//			type:"get",
+//			url:"DATA.txt",
+//			async:true,
+//			dataType:"text",
+//			success:function(msg){
+//				console.log(msg)
+
+
+</pre>
+<p>小实例，通过ajax获取网站上的数据</p>
+<pre>
+	
+$("img").click(
+	function(){
+		
+			var _data={};
+			_data.pageNum=2;
+			_data.pageSize=20;
+			$.ajax({   
+			type:"get",
+			url:"http://www.hemijiaoyu.com/service/searchApply",
+			async:true,
+			data:_data,
+			dataType:"JSON",
+			success:function(msg){
+				//console.log(msg.list[0]);
+				var str="< table>";
+				for(var i=0;i< msg.list.length;i++){
+					str+="<tr>";
+					
+					for(var j=0 in msg.list[i]){
+						str+="<td>"+msg.list[i][j]+"</td>";
+					}
+					str+="</tr>"
+				}
+				str+="</table>";
+				$("div").html(str)
+			},
+			eerror:function(msg){
+				console.log("错误")
+			}
+		});
+		
+	}
+)
+	</pre>
+	<p>结果如图所示</p>
+<img src="https://kingdomrain.github.io/img/QQ截图20161227190731.jpg">
+	</body>
+</html>
