@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>jQuery的Ajax的实例</div>
+		<p>
+			Ajax交互的基本流程
+		</p>
+		<pre>
+			
+		1.先获取接口文档或者接口数据
+		2.获取所有数据
+		a.需要给服务器传递参数
+		b.跨域：JSONP callback：非XMLhttpRequest对象交互，通过script标签交互
+		3.解析从服务器获取到的数据
+		a.解析数据过程中：脱离后台交互
+		b.显示数据：界面布局及其他
+		4.其他功能数据
+		a.需要的功能：查询功能（数据过滤，由服务器完成，）
+		b.重新规划数据
+		</pre>
+		<p>
+			实例获取接口数据并且将数据填入表格代码如下:
+		</p>
+		<pre>
+				type:"get",
+			url:"http://www.hemijiaoyu.com/service/searchApply",
+			async:true,
+			data:_data,
+			dataType:"JSON",
+			success:function(msg){
+				//console.log(msg.list[0]);
+				arr=msg.list;
+				//console.log(msg);
+				var str="< tr class='head'>< td>姓名< /td>< td>性别< /td>< td>出身年月< /td>< td>手机号码< /td>< td>政治面貌< /td>< td>QQ< /td>< td>学院< /td>< td>系< /td>< td>专业< /td>< td>申请时间< /td>< /tr>";
+				for(var i=0;i< msg.list.length;i++){
+					str+="<tr>";
+					
+					//for(var j=0 in msg.list[i]){
+						str+="<td>"+msg.list[i].name+"</td>";
+						str+="<td>"+msg.list[i].sex+"</td>";
+						str+="<td>"+msg.list[i].birthday+"</td>";
+						str+="<td>"+msg.list[i].mobile+"</td>";
+						str+="<td>"+msg.list[i].political+"</td>";
+						str+="<td>"+msg.list[i].qq+"</td>";
+						str+="<td>"+msg.list[i].college+"</td>";
+						str+="<td>"+msg.list[i].faculty+"</td>";
+						str+="<td>"+msg.list[i].majorMemo+"</td>";
+						str+="<td>"+msg.list[i].createTime+"</td>";
+						str+="<td class='id'>"+msg.list[i].id+"</td>";
+					//}
+					str+="</tr>"
+				}
+				str+="</table>";
+				$("#tab").html(str);
+				
+	
+		</pre>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161228194422.jpg">
+		<p>
+			添加筛选条件查询代码如下:
+		</p>
+		<pre>
+			
+	$("table").html("")
+	var _data={};
+	var $uname=$('#uname').val();
+	var $utel=$('#utel').val();
+	if($uname!=""){
+		_data.name=$uname;
+	}
+	if($utel!=""){
+		_data.mobile=$utel;
+	}
+	
+	$.ajax({
+		type:"get",
+			url:"http://www.hemijiaoyu.com/service/searchApply",
+			async:true,
+			data:_data,
+			dataType:"JSON",
+			success:function(msg){
+				//console.log(msg.list[0]);
+				console.log(msg);
+				var str="< tr class='head'>< td>姓名< /td>< td>性别< /td>< td>出身年月< /td>< td>手机号码< /td>< td>政治面貌< /td>< td>QQ< /td>< td>学院< /td>< td>系< /td>< td>专业< /td>< td>申请时间< /td>< /tr>";
+				for(var i=0;i< msg.list.length;i++){
+					str+="<tr>";
+					
+					for(var j=0 in msg.list[i]){
+						str+="<td>"+msg.list[i][j]+"</td>";
+					}
+					str+="</tr>"
+				}
+				$("table").html(str);
+					$("tr").dblclick(function(e){
+					console.log(this)
+				$("#outbox").show(500);
+	
+})
+			},
+			eerror:function(msg){
+				console.log("错误")
+			}
+	})
+		</pre>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161228194540.jpg">
+		<p>
+			双击单元格展开详细信息代码如下:
+		</p>
+		<pre>
+			$("tr").dblclick(function(e){     //我使用的办法是获取ajax数据的时候把数据交给一个arr对象,再根据点击的单元格的id来调出需要用到的数据.
+					var id=this.getElementsByClassName("id")[0].innerHTML;
+						console.log(e.currentTarget.id)
+				$("#outbox").show(500);
+				//$("#name").html()
+				var _data1={};
+				_data1.id=id;
+				var _data2={};
+					for(var k=0;k< arr.length;k++){
+						if(arr[k].id==id){
+							_data2=arr[k];
+						}
+					}
+				$("#name").html(_data2.name);
+				$("#mobile").html(_data2.mobile);
+				$("#birthday").html(_data2.birthday)
+		</pre>
+		
+		<img src="https://kingdomrain.github.io/img/QQ截图20161228194735.jpg">
+	</body>
+</html>
