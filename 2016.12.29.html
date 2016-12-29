@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>通过ajax上传数据</div>
+		<p>
+			首先我们需要对数据进行if判断,以此确保数据可以被接口所接受,主要代码如下:
+		</p>
+		<pre>
+			var hidden=document.getElementById("hidden");
+	var year=hidden.getElementsByTagName("select")[0];
+	var mouth=hidden.getElementsByClassName("hidden-main")[0];
+	var time=document.getElementById("time");
+	for(var i=2016;i>1950;i--){
+		var newoption=document.createElement("option");
+		//console.log(mouth)
+		year.appendChild(newoption);
+		newoption.innerHTML=i;
+	}
+	
+	
+	for(var k=1;k<13;k++){
+		var div=document.createElement("div");
+		div.innerHTML=k+"月";
+		mouth.appendChild(div);
+		div.time=k;
+		div.onclick=function(){
+			
+			time.value=year.options[year.selectedIndex].text+"-"+this.time;
+			hidden.style.display="none";
+		}
+	}
+	time.onclick=function(){
+		hidden.style.display="block";
+	}
+
+var sex1=document.getElementById("sex");
+$("#submit").click(function(){
+	
+	if($("#name").val().length<2||$("#name").val().length>20){
+		alert("请输入2到20字符的名字");
+		return;
+	}
+	if(time.value==""){
+		alert("请选择出身年月");
+		return;
+	}
+
+var reg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+	if(!reg.test($('#mobile').val())){
+		alert("请输入正确的手机号码");
+return;
+	}
+
+		var regqq=/^[0-9]*$/;
+	if($("#qq").val().length<5||$("#name").val().length>11||!regqq.test($("#qq").val())){
+		alert("请输入正确的QQ号");
+		return;
+	}
+	if($("#college").val().length<3||$("#college").val().length>20){
+		alert("请输入正确的学院");
+		return;
+	}
+	if($("#faculty").val().length<3||$("#faculty").val().length>20){
+		alert("请输入正确的系");
+		return;
+	}
+	if($("#major").val().length<3||$("#major").val().length>20){
+		alert("请输入正确的专业");
+		return;
+	}
+	if($("#fatherName").val().length<2||$("#fatherName").val().length>20){
+		alert("请输入2到20字符的父亲名字");
+		return;
+	}
+		if($("#matherName").val().length<2||$("#matherName").val().length>20){
+		alert("请输入2到20字符的母亲名字");
+		return;
+	}
+var reg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+	if(!reg.test($('#fatherMobile').val())){
+		alert("请输入正确的父亲手机号码");
+return;
+	}
+	if(!reg.test($('#matherMobile').val())){
+		alert("请输入正确的母亲手机号码");
+return;
+	}
+			if($("#homeAddress").val().length<5||$("#homeAddress").val().length>50){
+		alert("请输入5到50字符的家庭住址");
+		return;
+	}
+var msg=document.getElementsByName("radio1");
+function msgtest(msg){
+for(var k=0;k< msg.length;k++){
+	if(msg[k].checked){
+		return true
+	}
+}
+}
+if(!msgtest(msg)){
+	alert("请选择信息来源");
+	return;
+}
+		if($("#majorMemo").val().length<10||$("#majorMemo").val().length>200){
+		alert("请输入10到200字符的专业能力描述");
+		return;
+	}
+		if($("#selfMemo").val().length<10||$("#selfMemo").val().length>200){
+		alert("请输入10到200字符的自我评价描述");
+		return;
+	}
+
+		</pre>
+		<p>
+			获取到可以使用的数据后我们需要将它通过ajax传递给接口,主要代码如下:
+		</p>
+		<pre>
+			var _data={};
+  	var name=document.getElementById("name").value;
+  	var sex=document.getElementById("sex").value;
+  	var birthday=time.value.split("-")[0]+time.value.split("-")[1];
+  	var mobile=document.getElementById("mobile").value;
+  	var political=document.getElementById("political").value;
+  	var qq=document.getElementById("qq").value;
+  	var college=document.getElementById("college").value;
+  	var faculty=document.getElementById("faculty").value;
+  	var major=document.getElementById("major").value;
+  	var fatherName=document.getElementById("fatherName").value;
+  	var fatherMobile=document.getElementById("fatherMobile").value;
+  	var matherName=document.getElementById("matherName").value;
+  	var matherMobile=document.getElementById("matherMobile").value;
+  	var homeAddress=document.getElementById("homeAddress").value;
+  	var source=$("input:checked").val();
+  	var majorMemo=document.getElementById("majorMemo").value;
+  	var selfMemo=document.getElementById("selfMemo").value;
+  	_data.name=name;									//传给接口数据需要和接口规定的数据一样
+  	_data.sex=sex;
+  	_data.birthday=birthday;
+  	_data.mobile=mobile;
+  	_data.political=political;
+  	_data.qq=qq;
+  	_data.college=college;
+  	_data.faculty=faculty;
+  	_data.major=major;
+  	_data.fatherName=fatherName;
+  	_data.fatherMobile=fatherMobile;
+  	_data.matherName=matherName;
+  	_data.matherMobile=matherMobile;
+  	_data.homeAddress=homeAddress;
+  	_data.source=source;
+  	_data.majorMemo=majorMemo;
+  	_data.selfMemo=selfMemo;
+  	
+	$.ajax({
+		type:"post",
+		url:"http://www.hemijiaoyu.com/service/addApply",
+		async:true,
+		datatype:"text",
+		data:_data,
+		success:function(msg){
+			console.log("成功"+msg)
+		},
+		error:function(msg){
+			console.log(2)
+		},
+	});
+		</pre>
+		<p>提交之后就可以再通过接口查询到提交的数据了</p>
+		<div>插件的使用方法</div>
+		<p>一般插件下载后需要根据插件本身的需求和网页的需求来调试代码,主要代码如下</p>
+		<pre>
+			function(){     
+			$(function(){
+			
+			$("#page").Page({
+          totalPages:totalPages1,//分页总数
+          liNums: 7,//分页的数字按钮数(建议取奇数)
+          activeClass: 'activP', //active 类样式定义
+          callBack : function(page){
+          		//console.log(page)
+          		load1(page)
+          }
+      });
+		});
+		</pre>
+		<p>插件生成效果如下:</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20161229192641.jpg">
+	</body>
+</html>
