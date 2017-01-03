@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery</title>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div>jquery小实例</div>
+		<p>
+			实例一:切换选项改变显示图片,主要代码如下:
+		</p>
+		<pre>
+	    $(function(){
+		$(".tab>li").hover(function(){
+			$(this).addClass("active").siblings("li").removeClass("active");  //移入改变选项卡的样式
+			var ind=$(this).index();  //获取选中选项卡的索引号
+			$(".products div").eq(ind).addClass("selected").siblings("div").removeClass("selected"); //根据索引号改变图片的显示
+		})
+	})
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103193428.jpg">
+		<p>
+			实例二:切换选项使图片飞入,主要代码如下:
+		</p>
+		<pre>
+	    $(function(){
+		var n=1;
+		$("ol>li").mouseenter(function(){
+			n++;
+			$(this).addClass("active").siblings("li").removeClass("active");
+			var ind=$(this).index();
+			$("ul li").eq(ind).stop().css({
+				"z-index":n,   //改变需要飞入的图片的层级
+				"left":"300px"
+			}).animate({
+				
+				"left":"0px"
+			},500)
+		})
+	})
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103193802.jpg">
+		<p>
+			实例三:移入改变图片显示大小,主要代码如下:
+		</p>
+		<pre>
+	     $(function () {
+            $(".wrap li").each(function (i,ele) {  //通过each方法添加背景图片
+                $(this)
+                        .css("background-image","url(img/" + (i + 1) +".jpg)");
+            }).mouseenter(function () {
+                $(this).stop().animate({
+                    "width":600
+                },300);
+                $(this).siblings().stop().animate({
+                    "width":100
+                },300)
+            }).mouseleave(function () {
+                $(".wrap li").stop().animate({
+                    "width":200
+                },300)
+            });
+        })
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103195227.jpg">
+		<p>
+			实例四:切换选项卡改变图片显示二,主要代码如下:
+		</p>
+		<pre>
+	    $(function () {
+            $("#left li").mouseenter(function(){
+            	$("#center li").eq($(this).index()).show().siblings().hide()
+            });
+             $("#right li").mouseenter(function(){
+            	$("#center li").eq($(this).index()+9).show().siblings().hide()
+            })
+        })
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103195542.jpg">
+		<p>
+			实例五:根据滚轮延迟移动与页面加载图片显示,主要代码如下:
+		</p>
+		<pre>
+	       $(function () {
+        	$(window).scroll(function(e){
+        	var st=$(window).scrollTop();
+        	$("#left").stop().animate({
+        		"top":st+100
+        	},300)
+        	})   
+          $("#bottom").slideDown(500).slideUp(500).fadeIn(400)
+           $("#bottom img").click(function(){
+           	 $("#bottom").fadeOut(300)
+           })
+           
+       });
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103195726.jpg">
+		<p>
+			实例六:根据滚动条改变显示样式,主要代码如下:
+		</p>
+		<pre>
+	       $(function () {
+     	$(window).scroll(function(e){
+        	var st=$(window).scrollTop();
+        	var off=$("#left").offset().top;
+        	console.log($("#left").offset().top)
+        	if(st>500){
+        		$("#left").show();
+        		if(st<1000&&st>500){
+        			$("#left div").css("background","#F0AD4E");
+        			
+        		}else if(st<1500&&st>1000){
+        			$("#left div").css("background","#00C7F7")
+        		}else if(st<2000&&st>1500){
+        			$("#left div").css("background","#E2191D")
+        		}
+        	}else{
+        		$("#left").hide();
+        	}
+        	//console.log(window.outerHeight)
+        	})
+       });
+		</pre>
+		<p>
+			练习作业,主要代码如下:
+		</p>
+		<pre>
+	      $(function(){
+       	$(".box").mouseenter(function(){
+       		$(this).children(".in").stop().css({
+       			"width":0,
+       			"background":'rgba(55,55,55,0.3)'
+       		}).animate({
+       			"width":300,
+       			"background":'rgba(55,55,55,0.5)'
+       		});
+       		$(this).children(".bottom").stop().slideUp(200)
+       	});
+       	$(".box").mouseleave(function(){
+       		$(this).children(".in").stop().animate({
+       			"width":0,
+       			"background":'rgba(55,55,55,0.3)',
+       		});
+       		$(this).children(".bottom").stop().slideDown(200)
+       	})
+       })
+		</pre>
+		<p>效果如下图所示</p>
+		<img src="https://kingdomrain.github.io/img/QQ截图20170103200156.jpg">
+	</body>
+</html>
