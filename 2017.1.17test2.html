@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery-3.1.1.js"></script>
+		<style>
+		img{
+			transform:rotate(270deg);
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 50px;
+		}
+		</style>
+	</head>
+	<body>
+		<img src="img/39ca548714afb94628ef1808be_560.png">
+	</body>
+	<script>
+		$("img").mouseenter(function(){
+			$(this).animate({"width":"200px"},1000)
+		});
+		$("img").mouseout(function(){
+			$(this).animate({"width":"50px"},1000)
+		})
+	</script>
+</html>

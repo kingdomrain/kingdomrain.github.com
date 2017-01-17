@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery-3.1.1.js"></script>
+		<style>
+		.box{
+			width: 720px;
+			height: 322px;
+			position: relative;
+			overflow: hidden;
+			background-image: url(img/586f1dc6N3a38b344.jpg);
+		}
+		.span{
+			height: 322px;
+			position: absolute;
+			background-image: url(img/586f1dc6N3a38b344.jpg);
+			display: block;
+		}
+		.span2{
+			height: 322px;
+			position: absolute;
+			background-image: url(img/586f1dc6N3a38b344.jpg);
+		}
+		</style>
+	</head>
+	<body>
+		<div class="box"><div class="span2"></div></div>
+		<button class="left"><</button><button class="right">></button>
+	</body>
+	<script>
+		var num=100;
+		var index=0;
+		var imglist=["img/586f1dc6N3a38b344.jpg","img/586f573dN34ab8b7e.jpg!q70.jpg","img/5874a7b1N0eb76955.jpg"]
+		var box=document.getElementsByClassName("box")[0]
+		for(var i=0;i<num/2;i++){
+			var span=document.createElement("div");
+			span.className="span";
+			span.style.backgroundPositionX=-2*i*(720/num)+"px";
+			span.style.left=2*i*(720/num)+"px";
+			span.style.width=720/num+"px";
+			box.appendChild(span);
+			var span2=document.createElement("div");
+			span2.className="span2";
+			span2.style.backgroundPositionX=-(2*i+1)*(720/num)+"px";
+			span2.style.left=(2*i+1)*(720/num)+"px";
+			span2.style.width=720/num+"px";
+			box.appendChild(span2);
+		}
+		function auto(){
+		index++; 
+		if(index==3){
+			index=0;
+		}
+		if(index<0){
+			index=2;
+		}
+		$(".span,.span2").stop().css({"background-image":"url("+imglist[index]+")"})
+		$(".span").css({"top":322}).animate({"top":0},900,function(){
+			$(".box").css({"background-image":"url("+imglist[index]+")"})
+		}).delay(100).css({"top":322})
+		$(".span2").css({"top":-322}).animate({"top":0},900,function(){
+		}).delay(100).css({"top":-322})
+		}
+		auto1=setInterval(auto,2000);
+		$(".right").click(function(){
+			clearInterval(auto1)
+			auto();
+			auto1=setInterval(auto,2000);
+		})
+		$(".left").click(function(){
+			index-=2;
+			clearInterval(auto1)
+			auto();
+			auto1=setInterval(auto,2000);
+		})
+	</script>
+</html>

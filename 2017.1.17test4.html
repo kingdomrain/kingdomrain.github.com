@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery-3.1.1.js"></script>
+		<style>
+		.box{
+			transition: all 2s;
+			perspective:100PX;
+			width: 1000px;
+			height: 45px;
+			transform-style: preserve-3d;
+			position: relative;
+			margin-left: -360px;
+		}
+		.box img{
+			width: 100px;
+			position: absolute;
+			
+		}
+		.img9,.img8,.img7,.img6,.img5,.img4,.img3,.img2,.img1{
+			left: 450px;
+			
+		}
+		.img9{
+			transform:translateZ(-80px);
+			margin-left: 240px;
+		}
+		.img8{
+			transform:translateZ(-60px);
+			margin-left: 180px;
+		}
+		.img7{
+			transform:translateZ(-40px);
+			margin-left: 120px;
+		}
+		.img6{
+			transform:translateZ(-20px);
+			margin-left: 60px;
+		}
+		.img5{
+			transform:translateZ(-0px)
+		}
+		.img1{
+			transform:translateZ(-80px);
+			margin-left: -240px;
+		}
+		.img2{
+			transform:translateZ(-60px);
+			margin-left: -180px;
+		}
+		.img3{
+			transform:translateZ(-40px);
+			margin-left: -120px;
+		}
+		.img4{
+			transform:translateZ(-20px);
+			margin-left: -60px;
+		}
+		.left{
+			margin-left: 400px;
+		}
+		.right{
+			margin-left: 400px;
+		}
+		.img11{
+			
+animation:myfirst1 1s forwards ;
+}
+@keyframes myfirst1 
+{
+from  {transform:translateZ(-80px);}
+to {transform:translateZ(-100px);}
+}
+.img21{
+			
+animation:myfirst2 1s forwards ;
+}
+@keyframes myfirst2
+{
+from  {transform:translateZ(-60px);}
+to {transform:translateZ(-80px);}
+}
+
+.img31{
+			
+animation:myfirst3 1s forwards ;
+}
+@keyframes myfirst3
+{
+from  {transform:translateZ(-40px);}
+to {transform:translateZ(-60px);}
+}
+
+.img41{
+			
+animation:myfirst4 1s forwards ;
+}
+@keyframes myfirst4
+{
+from  {transform:translateZ(-20px);}
+to {transform:translateZ(-40px);}
+}
+
+.img51{
+			
+animation:myfirst5 1s forwards ;
+}
+@keyframes myfirst5
+{
+from  {transform:translateZ(-0px);}
+to {transform:translateZ(-20px);}
+}
+
+.img61{
+		 	
+animation:myfirst6 1s forwards ;
+} 
+@keyframes myfirst6
+{
+from  {transform:translateZ(-20px);}
+to {transform:translateZ(-0px);}
+}
+
+.img71{
+		 	
+animation:myfirst7 1s forwards ;
+} 
+@keyframes myfirst7
+{
+from  {transform:translateZ(-40px);}
+to {transform:translateZ(-20px);}
+}
+
+.img81{
+		 	
+animation:myfirst8 1s forwards ;
+} 
+@keyframes myfirst8
+{
+from  {transform:translateZ(-60px);}
+to {transform:translateZ(-40px);}
+}
+
+.img91{
+		 	
+animation:myfirst9 1s forwards ;
+} 
+@keyframes myfirst9
+{
+from  {transform:translateZ(-80px);}
+to {transform:translateZ(-60px);}
+}
+.bigbox{
+	width: 280px;
+	height:45px;
+	border: 1px solid red;
+	overflow: hidden;
+}
+		</style>
+	</head>
+	<body>
+		<div class="bigbox">
+		<div class="box">
+			
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img9"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img8"/>
+			<img src="img/586f573dN34ab8b7e.jpg!q70.jpg"  class="img7"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img6"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img5"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img4"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img3"/>
+			<img src="img/586f1dc6N3a38b344.jpg"  class="img2"/>
+			<img src="img/5874a7b1N0eb76955.jpg"  class="img1"/>
+		</div>
+		</div>
+		<button class="left"><</button><button class="right">></button>
+	</body>
+	<script>
+	var box=document.getElementsByClassName("box")[0];
+		var transform=-80;
+		var n=[],n2=[];
+//		img.src="img/586f1dc6N3a38b344.jpg";
+//		box.appendChild(img);
+//		img.
+$(".left").click(function(){
+	
+	function move(i){
+		n[i]=$(".img"+i).css("margin-left");
+		n2[i]=$(".img"+i).attr("src");
+		var left=parseInt($(".img"+i).css("margin-left"))-60;
+		var width=$(".img"+i).css("translate");
+		$(".img"+i).addClass('img'+i+1)
+		//var transform=$(".img"+i).css("transform")
+		//console.log(width)
+	$(".img"+i).stop().animate({
+		"margin-left":left,
+	},1000,function(){
+		$(".img"+i).removeClass('img'+i+1);
+		for(var l=0;l<n.length;l++){
+			$(".img"+l).css({
+				"margin-left":n[l],
+			});
+			//console.log(n2[l])
+			$(".img"+l).attr({src:n2[l+1]});
+			//console.log(n2[1])
+			if(l==n2.length-1){
+				$(".img"+l).attr({src:n2[1]})
+				
+			}
+		}
+		
+	});
+	}
+	for(var k=0;k<=9;k++){
+		move(k)
+	}
+	
+})
+
+
+$(".right").click(function(){
+	
+	function move(i){
+		n[i]=$(".img"+i).css("margin-left");
+		n2[i]=$(".img"+i).attr("src");
+		var left=parseInt($(".img"+i).css("margin-left"))+60;
+		//var width=$(".img"+i).css("translate");
+		$(".img"+i).addClass('img'+(10-i)+1)
+		//var transform=$(".img"+i).css("transform")
+		//console.log(width)
+	$(".img"+i).stop().animate({
+		"margin-left":left,
+	},1000,function(){
+		$(".img"+i).removeClass('img'+(10-i)+1);
+		for(var l=0;l<n.length;l++){
+			$(".img"+l).css({
+				"margin-left":n[l],
+			});
+			//console.log(n2[l])
+			$(".img"+l).attr({src:n2[l-1]});
+			//console.log(n2[1])
+			if(l==1){
+				$(".img"+l).attr({src:n2[n2.length-1]})
+				
+			}
+		}
+		
+	});
+	}
+	for(var k=0;k<=9;k++){
+		move(k)
+	}
+	
+})
+
+	</script>
+</html>
