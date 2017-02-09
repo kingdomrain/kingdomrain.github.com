@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>CSS3媒体查询</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<script src="js/vue.js"></script>
+		<style>
+			div{
+				width:400px;
+				height:50px;
+				line-height:50px;
+				background:#345678;
+				color:#fff;
+			}
+			pre{
+				background: #e4e4e4;
+				color:#666;
+			}
+			a{
+				text-decoration: none;
+				color:#FF4500;
+			}
+		</style>
+	</head>
+	<body class="container">
+		<div>Vue.js的使用方法</div>
+		<p>Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的 渐进式框架。与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。另一方面，Vue 完全有能力驱动采用单文件组件和 Vue 生态系统支持的库开发的复杂单页应用。</p>
+		<p>常用的vue语法有以下几类</p>
+		<a href="#v-bind"><button class="btn btn-primary" >v-bind</button></a>
+		<a href="#v-if"><button class="btn btn-primary">v-if</button></a>
+		<a href="#v-for"><button class="btn btn-primary">v-for</button></a>
+		<a href="#v-on"><button class="btn btn-primary">v-on</button></a>
+		<a href="#v-model"><button class="btn btn-primary">v-model</button></a>
+		<div id="v-bind">v-bind</div>
+		<p>v-bind可以用于Class 与 Style 绑定</p>
+		<h6>在对象中传入更多属性用来动态切换多个 class 。此外， v-bind:class 指令可以与普通的 class 属性共存。</h6>
+		<pre>
+			< div v-bind:class="{ active: isActive }">< /div>
+			< div class="static"
+	   	    v-bind:class="{ active: isActive, 'text-danger': hasError }" id="test">
+	   	    
+	   	    var vm=new Vue({
+				el:"#test1",
+				data: {
+				  isActive: true,
+				  hasError: false
+				}
+			})
+	   	    
+		</pre>
+		<h6>也可以直接绑定数据里的一个对象：</h6>
+		<pre>
+			< div v-bind:class="classObject">< /div>
+			
+			data: {
+			  classObject: {
+			    active: true,
+			    'text-danger': false
+			  }
+			}
+		</pre>
+		<h6>v-bind:style 的对象语法十分直观——看着非常像 CSS ，其实它是一个 JavaScript 对象。 CSS 属性名可以用驼峰式（camelCase）或短横分隔命名（kebab-case）：</h6>
+		<pre>
+			< div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">< /div>
+				
+			data: {
+			  activeColor: 'red',
+			  fontSize: 30
+			}	
+				
+		</pre>
+		<div id="v-if">v-if</div>
+		<p>v-if主要用于条件渲染</p>
+		<h6>在 Vue.js ，我们使用 v-if 指令实现写一个条件块</h6>
+		<pre>
+			< h1 v-if="ok">Yes< /h1>
+			< h1 v-else>No</ h1>
+		</pre>
+		<h6>v-else-if，顾名思义，用作 v-if 的 else-if 块。可以链式的多次使用：</h6>
+		<pre>
+			< div v-if="type === 'A'">
+			  A
+			< /div>
+			< div v-else-if="type === 'B'">
+			  B
+			< /div>
+			< div v-else-if="type === 'C'">
+			  C
+			< /div>
+			< div v-else>
+			  Not A/B/C
+			< /div>
+		</pre>
+		<h6>Vue 提供一种方式让你可以自己决定是否要复用元素。你要做的是添加一个属性 key ，key 必须带有唯一的值</h6>
+		<pre>
+			< template v-if="loginType === 'username'">
+			  < label>Username< /label>
+			  < input placeholder="Enter your username" key="username-input">
+			</ template>
+			< template v-else>
+			  < label>Email< /label>
+			  < input placeholder="Enter your email address" key="email-input">
+			< /template>
+		</pre>
+		<div id="v-for">v-for</div>
+		<p>我们用 v-for 指令根据一组数组的选项列表进行渲染。 v-for 指令需要以 item in items 形式的特殊语法， items 是源数据数组并且 item 是数组元素迭代的别名。</p>
+		<h6>v-for的基本用法如下</h6>
+		<pre>
+			< ul id="example-1">
+			  < li v-for="item in items">
+			    {{ item.message }}
+			  < /li>
+			< /ul>
+				
+			var example1 = new Vue({
+			  el: '#example-1',
+			  data: {
+			    items: [
+			      {message: 'Foo' },
+			      {message: 'Bar' }
+			    ]
+			  }
+			})
+		</pre>
+		<div id="v-on">v-on</div>
+		<p>可以用 v-on 指令监听 DOM 事件来触发一些 JavaScript 代码。</p>
+		<h6>v-on的基本用法如下</h6>
+		<pre>
+			< div id="example-1">
+			  < button v-on:click="counter += 1">增加 1< /button>
+			  < p>这个按钮被点击了 {{ counter }} 次。< /p>
+			< /div>
+				
+			var example1 = new Vue({
+			  el: '#example-1',
+			  data: {
+			    counter: 0
+			  }
+			})
+		</pre>
+		<div id="v-model">v-model</div>
+		<p>你可以用 v-model 指令在表单控件元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但 v-model 本质上不过是语法糖，它负责监听用户的输入事件以更新数据，并特别处理一些极端的例子。</p>
+		<h6>v-model的基本用法如下</h6>
+		<pre>
+			< input v-model="message" placeholder="edit me">
+			< p>Message is: {{ message }}< /p>
+				
+			var vm=new Vue({
+				el:"#table",
+				data:{
+		  			  message: ""
+				}	
+			})	
+		</pre>
+	</body>
+</html>
